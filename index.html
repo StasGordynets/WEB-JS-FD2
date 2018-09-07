@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Домашние задания</title>
+
+</head>
+<body>
+
+<p>Домашнее задание A</p>
+
+<button onclick="ECMAScript5()">ДЗ №1 (ECMA 5)</button>
+<button onclick="ECMAScript6()">ДЗ №1 (ECMA 6)</button>
+
+<p id="demo"></p>
+
+<script>
+    'use strict';
+
+    function ECMAScript5() {
+        var name = prompt('Ваша фамилия?', 'Иванов'),
+            surname = prompt('Ваше имя?', 'Иван'),
+            patronumic = prompt('Ваше отчество?', 'Иванович'),
+            years = prompt('Ваш возраст такой?', 25),
+            type = prompt('Ваш пол?', 'Мужской');
+
+        var string = `Имя: ${name} \n Фамилия: ${surname} \n Отчество: ${patronumic} \n Возраст: ${years} \n Пол:${type} `;
+
+        console.log(string);
+    }
+
+    function ECMAScript6() {
+        let namev6 = prompt('Ваша фамилия?', 'Сидоров'),
+            surnamev6 = prompt('Ваше имя?', 'Петр'),
+            patronumicv6 = prompt('Ваше отчество?', 'Абрамович'),
+            yearsv6 = prompt('Ваш возраст такой?', 40),
+            typev6 = prompt('Ваш пол?', 'Мужской'),
+            otherv6 = prompt('Дополнительные сведения:');
+
+        const constant = "Information";
+
+
+        var result = ecma6(namev6, surnamev6, patronumicv6, yearsv6, typev6, otherv6, constant);
+
+        console.log(result);
+    }
+
+    function ecma6(name, surname, patronumic, years, type, ...rest) {
+
+        return `Имя: ${name} \n Фамилия: ${surname} \n Отчество: ${patronumic} \n Возраст: ${years} \n Пол:${type}  \n Другое#1: ${rest[0]} \n Другое#2: ${rest[1]} `;
+        return x + y;
+    }
+</script>
+
+</body>
+</html>
