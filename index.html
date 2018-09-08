@@ -17,16 +17,41 @@
 <script>
     'use strict';
 
+    function empty(string) {
+        if (string === null) {
+            return "Не введено!";
+        }
+        else {
+            return string;
+        }
+    }
+
     function ECMAScript5() {
         var name = prompt('Ваша фамилия?', 'Иванов'),
             surname = prompt('Ваше имя?', 'Иван'),
             patronumic = prompt('Ваше отчество?', 'Иванович'),
             years = prompt('Ваш возраст такой?', 25),
-            type = prompt('Ваш пол?', 'Мужской');
+            type = confirm('Ваш пол мужской?'),
+            pensioner;
 
-        var string = `Имя: ${name} \n Фамилия: ${surname} \n Отчество: ${patronumic} \n Возраст: ${years} \n Пол:${type} `;
+        if (years <= 60) {
+            pensioner = "\n Пенсионер: да";
+        }
+        else {
+            pensioner = "\n Пенсионер: нет";
+        }
 
-        console.log(string);
+
+        if (type) {
+            type = "\n Мужской пол: Да";
+        }
+        else {
+            type = "\n Женский пол : Да";
+        }
+
+
+        console.log("Имя: " + empty(name) + "\n Фамилия: " + empty(surname) + "\n Отчество: " + empty(patronumic) +
+            " \n Возраст: " + empty(years) + pensioner + "\n  Через 5 лет вам будет: " + (parseInt(years) + 5) + type);
     }
 
     function ECMAScript6() {
@@ -34,21 +59,35 @@
             surnamev6 = prompt('Ваше имя?', 'Петр'),
             patronumicv6 = prompt('Ваше отчество?', 'Абрамович'),
             yearsv6 = prompt('Ваш возраст такой?', 40),
-            typev6 = prompt('Ваш пол?', 'Мужской'),
-            otherv6 = prompt('Дополнительные сведения:');
+            typev6 = confirm('Ваш пол Мужской?');
 
-        const constant = "Information";
+        if (yearsv6 <= 60) {
+            var pensioners = true
+        }
 
+        const types = typev6 ? typev6 = "\n Мужской пол: Да" : typev6 = "\n Женский пол : Да";
 
-        var result = ecma6(namev6, surnamev6, patronumicv6, yearsv6, typev6, otherv6, constant);
-
-        console.log(result);
+        console.log(template(empty(namev6), empty(surnamev6), empty(patronumicv6), empty(yearsv6), types, add5(yearsv6), pensioner(pensioners)));
     }
 
-    function ecma6(name, surname, patronumic, years, type, ...rest) {
+    function pensioner(x) {
+        switch (x) {
+            case 'true': {
+                return "Пенсионер";
+            }
+            default: {
+                return "Не пенсионер";
+            }
+        }
+    }
 
-        return `Имя: ${name} \n Фамилия: ${surname} \n Отчество: ${patronumic} \n Возраст: ${years} \n Пол:${type}  \n Другое#1: ${rest[0]} \n Другое#2: ${rest[1]} `;
-        return x + y;
+    function add5(x) {
+        
+        return parseInt(x) + 5;
+    }
+
+    function template(name, surname, patronumic, years, type, ...rest) {
+        return `Имя: ${name} \n Фамилия: ${surname} \n Отчество: ${patronumic} \n Возраст: ${years} ${type} \n Через 5 лет будет: ${rest[0]} \n Пенсионер?: ${rest[1]} `;
     }
 </script>
 
