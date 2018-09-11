@@ -4,92 +4,235 @@
     <meta charset="UTF-8">
     <title>Домашние задания</title>
 
+    <script>
+        'use strict';
+
+
+        function empty(string) {
+            if (string === null) {
+                return "Не введено!";
+            }
+            else {
+                return string;
+            }
+        }
+
+        function ECMAScript5() {
+            var name = prompt('Ваша фамилия?', 'Иванов'),
+                surname = prompt('Ваше имя?', 'Иван'),
+                patronumic = prompt('Ваше отчество?', 'Иванович'),
+                years = prompt('Ваш возраст такой?', 25),
+                type = confirm('Ваш пол мужской?'),
+                pensioner;
+
+            if (years >= 60) {
+                pensioner = "\nПенсионер: да";
+            }
+            else {
+                pensioner = "\nПенсионер: нет";
+            }
+
+            if (type) {
+                type = "\nМужской пол: Да";
+            }
+            else {
+                type = "\nЖенский пол : Да";
+            }
+
+            console.log("Имя: " + empty(name) + "\nФамилия: " + empty(surname) + "\nОтчество: " + empty(patronumic) +
+                "\nВозраст: " + empty(years) + " \nВозраст в днях: " + (empty(years) * 365) + pensioner + "\nЧерез 5 лет вам будет: " + (parseInt(years) + 5) + type);
+        }
+
+        function template(name, surname, patronumic, years, ...rest) {
+            return `Имя: ${name} \nФамилия: ${surname} \nОтчество: ${patronumic} \nВозраст: ${years} \nВозраст в днях: ${rest[0]} ${rest[1]} \nЧерез 5 лет будет: ${rest[2]} \nПенсионер?: ${rest[3]} `;
+        }
+
+        function pensioner(x) {
+            switch (x) {
+                case 'true': {
+                    return "Пенсионер";
+                }
+                default: {
+                    return "Не пенсионер";
+                }
+            }
+        }
+
+        function add5(x) {
+            return parseInt(x) + 5;
+        }
+
+        function ECMAScript6() {
+            let namev6 = prompt('Ваша фамилия?', 'Сидоров'),
+                surnamev6 = prompt('Ваше имя?', 'Петр'),
+                patronumicv6 = prompt('Ваше отчество?', 'Абрамович'),
+                yearsv6 = prompt('Ваш возраст такой?', 40),
+                typev6 = confirm('Ваш пол Мужской?');
+
+            if (yearsv6 <= 60) {
+                var pensioners = true
+            }
+
+            const types = typev6 ? typev6 = "\nМужской пол: Да" : typev6 = "\nЖенский пол : Да";
+
+            console.log(template(empty(namev6), empty(surnamev6), empty(patronumicv6), empty(yearsv6), (empty(yearsv6) * 365), types, add5(yearsv6), pensioner(pensioners)));
+        }
+
+        //home work #3
+
+        let N, M, sizes, arrayN, even, center, middleCenter, leftCenter, rightCenter;
+
+        function getRandArray(N, M, sizes) {
+            let arrayX = [];
+            for (var i = 0; i < sizes; i++) {
+                arrayX[i] = Math.floor(Math.random() * (M - N + 1)) + N;
+            }
+            return arrayX;
+        }
+
+        function getValue(id) {
+            return document.getElementById(id).value;
+        }
+
+        function getvalues() {
+            N = Number(getValue("numberN"));
+            M = Number(getValue("numberM"));
+            sizes = Number(getValue("sizes"));
+            arrayN = getRandArray(N, M, sizes);
+            even = arrayN.length % 2 === 0;
+            center = Math.floor(arrayN.length / 2);
+        }
+
+        function printInfo() {
+            console.log("Array = " + arrayN);
+            console.log("Parity = " + even);
+            console.log("Center index = " + center);
+            console.log("ArraySize = " + arrayN.length);
+        }
+
+        function saveArray() {
+            for (let i = 0; i < center; i++) {
+                even ?
+                    ([arrayN[i], arrayN[center + i]] = [arrayN[center + i], arrayN[i]]) :
+                    ([arrayN[i], arrayN[center + i + 1]] = [arrayN[center + i + 1], arrayN[i]])
+            }
+        }
+
+        function saveArrayReverse() {
+            if (even) {
+                for (let i = 0, j = center - 1; i < j; i++, j--) {
+                    [arrayN[i], arrayN[j]] = [arrayN[j], arrayN[i]];
+                }
+                for (let i = center, j = arrayN.length - 1; i < j; i++, j--) {
+                    [arrayN[i], arrayN[j]] = [arrayN[j], arrayN[i]];
+                }
+            }
+            else {
+                for (let i = 0, j = center - 1; i < j; i++, j--) {
+                    [arrayN[i], arrayN[j]] = [arrayN[j], arrayN[i]];
+                }
+                for (let i = center + 1, j = arrayN.length - 1; i < j; i++, j--) {
+                    [arrayN[i], arrayN[j]] = [arrayN[j], arrayN[i]];
+                }
+            }
+        }
+
+        function paragraph1() {
+            getvalues();
+            printInfo();
+
+            saveArray();
+
+            console.log("OLD'NEW Array = " + arrayN);
+        }
+
+        function paragraph2() {
+
+            getvalues();
+            printInfo();
+
+            saveArrayReverse();
+
+            console.log("OLD'NEW Array = " + arrayN);
+        }
+
+        function isTrue(number) {
+            return number === "true";
+        }
+
+        function areArraysEqual(array1, array2) {
+            let status = [];
+
+            if (array1 === null || array2 === null) {
+                return "false";
+            }
+            else if (array1.length !== array2.length) {
+                return "false";
+            }
+            else {
+                for (let i = 0; i < array1.length; i++) {
+                    if (array1[i] !== array2[i]) {
+
+                        status[i] = "false";
+                    }
+                    else {
+                        status[i] = "true";
+                    }
+                }
+            }
+            return status.every(isTrue);
+        }
+
+        function paragraph3() {
+            console.log(areArraysEqual([1, 2, 3], [1, 4, 5])); // false
+            console.log(areArraysEqual([1, 2, 3], [1, 2, "3"])); // false
+            console.log(areArraysEqual([1, 2, 3], [1, 2, 3])); // true
+            console.log(areArraysEqual([], [])); // true
+            console.log(areArraysEqual([], null)); // false
+        }
+
+    </script>
 </head>
 <body>
 
-<p>Домашнее задание A</p>
+<p style="font-size: 25px">Домашнее задание №1 и №2</p>
 
-<button onclick="ECMAScript5()">ДЗ №1 (ECMA 5)</button>
-<button onclick="ECMAScript6()">ДЗ №1 (ECMA 6)</button>
-
-<p id="demo"></p>
-
-<script>
-    'use strict';
-
-    function empty(string) {
-        if (string === null) {
-            return "Не введено!";
-        }
-        else {
-            return string;
-        }
-    }
-
-    function ECMAScript5() {
-        var name = prompt('Ваша фамилия?', 'Иванов'),
-            surname = prompt('Ваше имя?', 'Иван'),
-            patronumic = prompt('Ваше отчество?', 'Иванович'),
-            years = prompt('Ваш возраст такой?', 25),
-            type = confirm('Ваш пол мужской?'),
-            pensioner;
-
-        if (years <= 60) {
-            pensioner = "\n Пенсионер: да";
-        }
-        else {
-            pensioner = "\n Пенсионер: нет";
-        }
+<button onclick="ECMAScript5()">ECMA 5</button>
+<button onclick="ECMAScript6()">ECMA 6</button>
 
 
-        if (type) {
-            type = "\n Мужской пол: Да";
-        }
-        else {
-            type = "\n Женский пол : Да";
-        }
+<p style="font-size: 25px">Домашнее задание №3</p>
+
+<p> 1. Сгенерировать массив из N случайных целых чисел. Поменять местами все элементы относительно середины массива по
+    следующей схеме: Было [1,2,3,4,5,6,7], стало [5,6,7,4,1,2,3]. Создавать новые массивы нельзя. <br/> <br/>
+    2. Сгенерировать массив из N случайных целых чисел. Поменять местами все элементы относительно середины массива по
+    следующей схеме: Было [1,2,3,4,5,6,7,8,9], стало [4,3,2,1,5,9,8,7,6]. Создавать новые массивы нельзя. <br/> <br/>
+    Для задания 3 и 4 используйте формулу из темы 3 тренинга HTML/CSS `Math.floor(Math.random()*(M-N+1))+N` <br/>
+    3. Реализовать функцию сравнения двух массивов на равенство, т.е. определить, что массивы имеют одинаковые элементы
+    в одинаковой последовательности. "function areArraysEqual(a1, a2) { } <br/>
+    Эти тесты должны проходить успешно: <br/>
+    console.log(areArraysEqual([1,2,3], [1,4,5])); // false <br/>
+    console.log(areArraysEqual([1,2,3], [1,2,"3"])); // false <br/>
+    console.log(areArraysEqual([1,2,3], [1,2,3])); // true <br/>
+    console.log(areArraysEqual([], [])); // true <br/>
+    console.log(areArraysEqual([], null)); // false
+</p>
 
 
-        console.log("Имя: " + empty(name) + "\n Фамилия: " + empty(surname) + "\n Отчество: " + empty(patronumic) +
-            " \n Возраст: " + empty(years) + pensioner + "\n  Через 5 лет вам будет: " + (parseInt(years) + 5) + type);
-    }
+<p>Ввод интервала для генерации чисел:</p>
+<input type="text" id="numberN" placeholder="Введите N">
+<input type="text" id="numberM" placeholder="Введите M">
 
-    function ECMAScript6() {
-        let namev6 = prompt('Ваша фамилия?', 'Сидоров'),
-            surnamev6 = prompt('Ваше имя?', 'Петр'),
-            patronumicv6 = prompt('Ваше отчество?', 'Абрамович'),
-            yearsv6 = prompt('Ваш возраст такой?', 40),
-            typev6 = confirm('Ваш пол Мужской?');
+<p>Колличество сгенерированных чисел:</p>
+<input type="text" id="sizes" placeholder="Введите кол-во чисел">
 
-        if (yearsv6 <= 60) {
-            var pensioners = true
-        }
+<br/>
+<br/>
 
-        const types = typev6 ? typev6 = "\n Мужской пол: Да" : typev6 = "\n Женский пол : Да";
+<button onclick="paragraph1()">Выполнить пункт 1</button>
+<button onclick="paragraph2()">Выполнить пункт 2</button>
+<button onclick="paragraph3()">Выполнить пункт 3</button>
 
-        console.log(template(empty(namev6), empty(surnamev6), empty(patronumicv6), empty(yearsv6), types, add5(yearsv6), pensioner(pensioners)));
-    }
-
-    function pensioner(x) {
-        switch (x) {
-            case 'true': {
-                return "Пенсионер";
-            }
-            default: {
-                return "Не пенсионер";
-            }
-        }
-    }
-
-    function add5(x) {
-        
-        return parseInt(x) + 5;
-    }
-
-    function template(name, surname, patronumic, years, type, ...rest) {
-        return `Имя: ${name} \n Фамилия: ${surname} \n Отчество: ${patronumic} \n Возраст: ${years} ${type} \n Через 5 лет будет: ${rest[0]} \n Пенсионер?: ${rest[1]} `;
-    }
-</script>
 
 </body>
 </html>
