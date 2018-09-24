@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+
+    function formatFromCodes(element, formatString) {
+
+        const s = formatString.trim();
+        const parts = s.split('[B]').filter(x => !!x);
+        const startFromBold = s.indexOf('[B]') == 0;
+        let partsEM;
+
+        for (let i = 0, n = parts.length; i < n; i++) {
+
+            partsEM = parts[i].split('[EM]').filter(x => !!x);
+
+            if (i % 2 == 0 && startFromBold) {
+                const bold = document.createElement('strong');
+                bold.textContent = parts[i];
+                element.appendChild(bold);
+            } else if (partsEM.length != 1) {
+                for (let j = 0, k = partsEM.length; j < k; j++) {
+                    if (j % 2 != 0) {
+                        const em = document.createElement('em');
+                        em.textContent = partsEM[j];
+                        element.appendChild(em);
+                    }
+                    else {
+                        const text = document.createTextNode(partsEM[j]);
+                        element.appendChild(text);
+                    }
+                }
+            }
+            else {
+
+                const text = document.createTextNode(parts[i]);
+                element.appendChild(text);
+            }
+        }
+    }
+
+    formatFromCodes(document.body, "[B]это жирный текст[B] а это обычный [B], а это опять жирный текст[B], а это [EM]курсив[EM]");
+</script>
+
+</body>
+</html>
