@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <title>Touch</title>
+    <meta charset="UTF-8">
+    <style>
+        html, body, body > div {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+
+    <img src="man.png" alt="Man" style="width:100px;height:100px;position:absolute;" >
+    <img src="ball1.png" alt="Ball 1" style="width:100px;height:100px;position:absolute;" >
+    <img src="ball2.png" alt="Ball 2" style="width:100px;height:100px;position:absolute;">
+</div>
+<script>
+
+    /*
+    ## думал так но не получается
+
+    var img = document.myForm.getElementsByTagName('img');
+
+    for (let i = 0; i < img.length; i++) {
+        img[i].addEventListener('mousemove', handleMouseMove);
+        img[i].addEventListener('mousedown', handleMouseDown);
+        img[i].addEventListener('mouseup', handleMouseUp);
+    }
+    */
+
+    var div = document.getElementById('container');
+
+    div.addEventListener('mousemove', handleMouseMove);
+    div.addEventListener('mousedown', handleMouseDown);
+    div.addEventListener('mouseup', handleMouseUp);
+
+    var graggableObject = null; // Перемещаемый элемент
+    var xy = {}; // Начальные координаты элемента
+
+    function handleMouseDown(e) {
+        graggableObject = e.target; // Сохранить элемент-источник события
+        var s = getComputedStyle(graggableObject);
+        xy.top = s.top; // Запомнить его начальную координату Y верхней точки
+        xy.left = s.left; // Запомнить его начальную координату X верхней точки
+        xy.mtop = e.clientY; // Запомнить позицию курсора по Y в начальной точке
+        xy.mleft = e.clientX; // Запомнить позицию курсора по X в начальной точке
+    }
+
+    function handleMouseUp(e) {
+        graggableObject = null; // Очистка
+        xy = {};
+    }
+
+    function handleMouseMove(e) {
+        if (graggableObject) {
+            // при перемещении
+            // Присвоить Y верхней точки блока начальное значение плюс смещение мыши по Y
+            graggableObject.style.top = parseInt(xy.top) + (e.clientY - xy.mtop) + 'px';
+            // Присвоить X верхней точки блока начальное значение плюс смещение мыши по X
+            graggableObject.style.left = parseInt(xy.left) + (e.clientX - xy.mleft) + 'px';
+        }
+    }
+</script>
+</body>
+</html>
