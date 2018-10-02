@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW11</title>
+</head>
+<body>
+
+<form method="POST" name="myForm" action="http://fe.it-academy.by/TestForm.php" target="_blank">
+    <table class="SNoBorders">
+        <tbody>
+        <tr>
+            <td>Разработчики:</td>
+            <td><input required type="text" name="author" id="author" style="width: 453px"></td>
+        </tr>
+        <tr>
+            <td>Название сайта:</td>
+            <td><input required type="text" name="siteName" id="siteName" style="width: 453px"></td>
+        </tr>
+        <tr>
+            <td>URL сайта:</td>
+            <td><input required type="text" name="urlSite" id="urlSite" style="width: 300px"></td>
+        </tr>
+        <tr>
+            <td>Дата запуска сайта:</td>
+            <td><input required type="text" name="startdate" id="startdate" style="width: 80px"></td>
+        </tr>
+        <tr>
+            <td>Посетителей в сутки:</td>
+            <td><input required type="text" name="persons" id="persons" style="width: 80px"></td>
+        </tr>
+        <tr>
+            <td>E-mail для связи:</td>
+            <td><input required type="text" name="email" id="email" style="width: 200px"></td>
+        </tr>
+        <tr>
+            <td>Рубрика каталога:</td>
+            <td style="padding-left: 1px">
+                <select required name="rubric" id="rubric" style="width: 204px; margin-left: 2px">
+                    <option value="1">здоровье</option>
+                    <option value="2">домашний уют</option>
+                    <option value="3" selected="">бытовая техника</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Размещение:</td>
+            <td style="padding: 2px 0 2px 0">
+                <input required type="radio" name="public" id="publicOne" value="1"><span
+                    class="SRadio8a">бесплатное</span>
+                <input required type="radio" name="public" id="publicTwo" value="2"><span
+                    class="SRadio8a">платное</span>
+                <input required type="radio" name="public" id="publicThree" value="3"><span class="SRadio8a">VIP</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 2px 0 3px 3px">Разрешить&nbsp;отзывы:</td>
+            <td><input required type="checkbox" id="comments" name="comments"></td>
+        </tr>
+        <tr>
+            <td colspan="2">Описание сайта:<br>
+                <textarea name="article" id="article" style="width: 608px; height: 50px"></textarea></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Опубликовать"></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+<script>
+    var input = document.getElementsByTagName('input');
+
+    for (let i = 0; i < 11; i++) {
+        if (i < 6) {
+            input[i].addEventListener('blur', changeInput);
+        } else {
+            input[i].addEventListener('change', changeInput);
+        }
+    }
+
+    function changeInput(e) {
+        switch (e.target.id) {
+            case 'startdate': {
+                if (isNaN(getValue(e.target.name))) {
+                    alert("Введите дату создания сайта!");
+                }
+                break;
+            }
+            case 'persons': {
+                if (isNaN(getValue(e.target.name))) {
+                    alert("Введите число пользователей");
+                }
+                break;
+            }
+            case 'publicOne': {
+                console.log("Выбран бесплатный план");
+                break;
+            }
+            case 'publicTwo': {
+                console.log("Выбран платный план");
+                break;
+            }
+            case 'publicThree': {
+                console.log("Выбран Вип план");
+                break;
+            }
+            case 'rubric': {
+                console.log($(id).val());
+                break;
+            }
+            default: {
+                if (!isNaN(getValue(e.target.name))) {
+                    alert("Введите строку с данными");
+                }
+                break;
+            }
+        }
+    }
+
+    function getValue(id) {
+        return document.getElementById(id).value;
+    }
+
+</script>
+
+</body>
+</html>
