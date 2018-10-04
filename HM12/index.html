@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <title>x</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id='div1' style='border: solid red 1px; width: 300px; height: 150px'
+     ondrop="divDrop(event)"
+     ondragover="divDragOver(event)"
+     ondragenter="divDragEnter(event)"
+     ondragleave="divDragLeave(event)">
+</div>
+<br/>
+<div id='div2' style='border: solid blue 1px; width: 300px; height: 150px'
+     ondrop="divDrop(event)"
+     ondragover="divDragOver(event)"
+     ondragenter="divDragEnter(event)"
+     ondragleave="divDragLeave(event)">
+</div>
+<br/><br/>
+<img id='BALL1' width=50 src="http://fe.it-academy.by/Examples/ball3.png"
+     ondragstart="ballDragStart(event)"
+     ondragend="ballDragEnd(event)">
+<img id='BALL2' width=70 src="http://fe.it-academy.by/Examples/ball3.png"
+     ondragstart="ballDragStart(event)"
+     ondragend="ballDragEnd(event)">
+<img id='BALL3' width=100 src="http://fe.it-academy.by/Examples/ball3.png"
+     ondragstart="ballDragStart(event)"
+     ondragend="ballDragEnd(event)">
+
+<script>
+    "use strict";
+    var draggedBall = null;
+
+    function divDragEnter(e) {
+        // мяч вошёл в область div
+        e.preventDefault();
+        e.currentTarget.style.background = "yellow";
+
+    }
+
+    function divDragLeave(e) {
+        e.preventDefault();
+        e.currentTarget.style.background = "white";
+
+    }
+
+    function ballDragStart(e) {
+        console.log('Start: ' + e.target.id);
+        draggedBall = e.target;
+        setImageVisible(e.target, false);
+
+    }
+
+    function ballDragEnd(e) {
+        draggedBall = null;
+        console.log('End: ' + e.target.id);
+
+    }
+
+    function divDragOver(e) {
+        if (e.target.tagName === 'IMG') {
+            return;
+        }
+        e.preventDefault();
+    }
+
+    function divDrop(e) {
+        e.preventDefault();
+        if (draggedBall) {
+            e.currentTarget.appendChild(draggedBall);
+            e.currentTarget.style.background = "white";
+        }
+    }
+
+    function setImageVisible(el, visible) {
+        el.style.visibility = (visible ? 'visible' : 'hidden');
+    }
+
+</script>
+</body>
+</html>
