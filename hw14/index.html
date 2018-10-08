@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Часы</title>
+
+</head>
+<body>
+
+<div id="clock"></div>
+
+<script>
+    var d = new Date();
+
+    var numColor = "#000",
+        width = 600;
+
+    var container = document.getElementById("clock");
+
+    var panelClock = document.createElement("div");
+    panelClock.style.borderRadius = "50%";
+    panelClock.style.backgroundColor = "#ebf10a";
+    panelClock.style.border = "solid 1px #ccc";
+    panelClock.style.width = width + "px";
+    panelClock.style.height = width + "px";
+    panelClock.style.position = "relative";
+    container.appendChild(panelClock);
+
+    var labelTime = document.createElement("h5");
+    labelTime.style.width = "100%";
+    labelTime.style.textAlign = "center";
+    labelTime.style.fontWeight = "normal";
+    labelTime.style.fontSize = width / 10 + "px";
+    labelTime.style.marginTop = width * 0.55 + "px";
+    labelTime.style.color = numColor;
+    labelTime.innerHTML = d.toLocaleTimeString();
+
+    panelClock.appendChild(labelTime);
+
+
+    var ul = document.createElement("ul");
+    ul.style.height = "100%";
+    ul.style.padding = "0";
+    ul.style.margin = "0";
+    ul.style.listStyle = "none";
+    ul.style.position = "absolute";
+    ul.style.width = 40 + "px";
+    ul.style.top = 0;
+    ul.style.left = width / 2 - 20 + "px";
+    ul.style.color = numColor;
+    panelClock.appendChild(ul);
+
+    for (var i = 0; i <= 5; i++) {
+
+        var list = document.createElement("li");
+        list.style.padding = "0";
+        list.style.margin = "0";
+        list.style.position = "absolute";
+        list.style.textAlign = "center";
+        list.style.width = "40px";
+        list.style.height = width + "px";
+        list.style.fontSize = width / 8 + "px";
+        ul.appendChild(list);
+
+        list.style.transform = "rotate(" + 360 / 12 * (i + 1) + "deg)";
+
+        var numR = document.createElement("div");
+        numR.style.borderRadius = "50%";
+        numR.style.padding = "2";
+        numR.style.backgroundColor = "#0c21f1";
+        numR.style.width = "100%";
+        numR.style.position = "absolute";
+        numR.style.textAlign = "center";
+        numR.innerHTML = i + 1;
+        list.appendChild(numR);
+
+        numR.style.transform = "rotate(" + -360 / 12 * (i + 1) + "deg)";
+
+
+        var numL = document.createElement("div");
+        numL.style.width = "100%";
+        numL.style.borderRadius = "50%";
+        numL.style.padding = "2";
+        numL.style.backgroundColor = "#0c21f1";
+        numL.style.position = "absolute";
+        numL.style.textAlign = "center";
+        numL.style.bottom = "0";
+        numL.innerHTML = i + 7;
+        list.appendChild(numL);
+
+        numL.style.transform = "rotate(" + -360 / 12 * (i + 1) + "deg)";
+
+    }
+
+    var hour = document.createElement("div");
+    var hourWidth = width * 0.02;
+    var hourTop = width * 0.25 - (hourWidth * 0.5);
+    var hourleft = width * 0.5 - hourWidth * 0.5;
+    hour.style.width = hourWidth + "px";
+    hour.style.height = hourWidth + "px";
+    hour.style.position = "absolute";
+    hour.style.border = "solid 0px transparent";
+    hour.style.left = hourleft + "px";
+    hour.style.top = hourTop + "px";
+    hour.style.borderTop = "solid " + (width * 0.5 - hourTop) + "px #f60";
+    hour.style.borderBottomWidth = (width * 0.5 - hourTop) + "px";
+    panelClock.appendChild(hour);
+
+    var min = document.createElement("div");
+    var minWidth = width * 0.01;
+    var minTop = width * 0.1 - (minWidth * 0.5);
+    var minleft = width * 0.5 - minWidth * 0.5;
+    min.style.width = minWidth + "px";
+    min.style.height = minWidth + "px";
+    min.style.position = "absolute";
+    min.style.border = "solid 0px transparent";
+    min.style.left = minleft + "px";
+    min.style.top = minTop + "px";
+    min.style.borderTop = "solid " + (width * 0.5 - minTop) + "px #09f";
+    min.style.borderBottomWidth = (width * 0.5 - minTop) + "px";
+    panelClock.appendChild(min);
+
+    //second hand
+    var sec = document.createElement("div");
+    var secTop = width * 0.05;
+    sec.style.width = "1px";
+    sec.style.height = "1px";
+    sec.style.position = "absolute";
+    sec.style.border = "solid 0px transparent";
+    sec.style.left = (width * 0.5 - 1) + "px";
+    sec.style.top = secTop + "px";
+    sec.style.borderTop = "solid " + (width * 0.5 - secTop) + "px " + numColor;
+    sec.style.borderBottomWidth = (width * 0.5 - secTop) + "px";
+    panelClock.appendChild(sec);
+
+    var point = document.createElement("div");
+    var pointWidth = width * 0.05;
+    point.style.width = pointWidth + "px";
+    point.style.height = pointWidth + "px";
+    point.style.position = "absolute";
+    point.style.backgroundColor = numColor;
+    point.style.left = width * 0.5 - (pointWidth * 0.5) + "px";
+    point.style.top = width * 0.5 - (pointWidth * 0.5) + "px";
+    point.style.borderRadius = "50%";
+    panelClock.appendChild(point);
+
+
+    window.setInterval(function () {
+        var now = new Date();
+        labelTime.innerHTML = now.toLocaleTimeString();
+
+        var roS = 1.0 * 360 / 60 * now.getSeconds();
+        var roM = 1.0 * 360 / 60 * now.getMinutes();
+        var roH = 1.0 * 360 / 12 * (now.getHours() % 12) + 1.0 * 360 / 12 * (now.getMinutes() / 60);
+
+        sec.style.transform = 'rotate(' + roS + 'deg)';
+        min.style.transform = 'rotate(' + roM + 'deg)';
+        hour.style.transform = 'rotate(' + roH + 'deg)';
+    }, 1000);
+</script>
+</body>
+</html>
