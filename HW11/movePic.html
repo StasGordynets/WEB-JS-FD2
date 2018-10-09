@@ -43,6 +43,7 @@
     var xy = {}; // Начальные координаты элемента
 
     function handleMouseDown(e) {
+        e.preventDefault();
         graggableObject = e.target; // Сохранить элемент-источник события
         var s = getComputedStyle(graggableObject);
         xy.top = s.top; // Запомнить его начальную координату Y верхней точки
