@@ -1,0 +1,23 @@
+{
+  "result": [
+    {
+      "label": "Порода кота:",
+      "kind": "longtext",
+      "name": "name"
+    },
+    {
+      "label": "Возраст кота:",
+      "kind": "number",
+      "name": "age"
+    },
+    {
+      "label": "Пол кота:",
+      "kind": "shorttext",
+      "name": "sex"
+    },
+    {
+      "label": "Зарегистрировать кота:",
+      "kind": "submit"
+    }
+  ]
+}

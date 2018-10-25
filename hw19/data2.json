@@ -1,0 +1,57 @@
+{
+  "result": [
+    {
+      "label": "Должность:",
+      "kind": "longtext",
+      "name": "position"
+    },
+    {
+      "label": "Ставка:",
+      "kind": "number",
+      "name": "visitors"
+    },
+    {
+      "label": "Имя работника:",
+      "kind": "longtext",
+      "name": "namePerson"
+    },
+    {
+      "label": "Фамилия работника:",
+      "kind": "longtext",
+      "name": "patronumicPerson"
+    },
+    {
+      "label": "Вид деятельности:",
+      "kind": "combo",
+      "name": "type",
+      "variants": [
+        {
+          "text": "Администрирование",
+          "value": 1
+        },
+        {
+          "text": "Тестирование",
+          "value": 2
+        },
+        {
+          "text": "Создание ПО",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "label": "Возраст:",
+      "kind": "number",
+      "name": "age"
+    },
+    {
+      "label": "E-mail:",
+      "kind": "shorttext",
+      "name": "email"
+    },
+    {
+      "label": "Зарегистрироваться:",
+      "kind": "submit"
+    }
+  ]
+}

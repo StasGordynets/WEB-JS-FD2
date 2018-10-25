@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DYN_FORM</title>
+</head>
+<body>
+<script src="script.js"></script>
+<script>
+    function reqListener() {
+        if (this.status === 200) {
+            const response = JSON ? JSON.parse(this.responseText) : eval("(" + this.responseText + ")");
+            generateForm(response.result);
+        } else {
+            document.body.innerHTML = this.status + ' ' + this.statusText;
+        }
+    }
+
+    function onreadystatechangeListener() {
+        console.log(this.readyState);
+    }
+
+    let formDef1 = new XMLHttpRequest();
+    formDef1.onload = reqListener;
+    formDef1.onreadystatechange = onreadystatechangeListener;
+    formDef1.open("get", 'data.json', true);
+    formDef1.send();
+    let formDef2 = new XMLHttpRequest();
+    formDef2.onload = reqListener;
+    formDef2.onreadystatechange = onreadystatechangeListener;
+    formDef2.open("get", 'data2.json', true);
+    formDef2.send();
+
+</script>
+</body>
+</html>
