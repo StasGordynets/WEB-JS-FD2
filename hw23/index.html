@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ввод ip адреса</title>
+    <script src='http://fe.it-academy.by/JQ/jquery.js'></script>
+    <style>
+        .onlythree {
+            width: 25px;
+            border: 0;
+        }
+
+        div {
+            border: 1px solid gray;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<form name="ip" action="#">
+    <div>
+        <input type="text" name='text1' id="1" maxlength="3" class="onlythree"/>.
+        <input type="text" name='text2' id="2" maxlength="3" class="onlythree"/>.
+        <input type="text" name='text3' id="3" maxlength="3" class="onlythree"/>.
+        <input type="text" name='text4' id="4" maxlength="3" class="onlythree"/>
+    </div>
+
+</form>
+
+<li class="submit"><input id="button" type="submit" name="submit" value="Проверить"/></li>
+
+<script>
+
+    document.getElementById('button').addEventListener('click', ValidateIPaddress);
+
+    $(".onlythree").keyup(function () {
+        if (this.value.length == this.maxLength) {
+            $(this).next('.onlythree').focus();
+        }
+    });
+
+    function ValidateIPaddress(e) {
+        let inputText = document.getElementById('1').value + '.' + document.getElementById('2').value + '.' + document.getElementById('3').value + '.' + document.getElementById('4').value;
+
+        var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (inputText.match(ipformat)) {
+            alert("IP Адрес: " + inputText);
+            document.ip.text1.focus();
+            return true;
+        }
+        else {
+            alert("IP адрес введен не правильно!");
+            document.ip.text1.focus();
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>
