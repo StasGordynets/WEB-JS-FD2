@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>x</title>
+    <style>
+        .errorMsg {
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+    <script src="http://fe.it-academy.by/JQ/jquery.js"></script>
+</head>
+<body>
+<script src="script.js"></script>
+<script>
+
+    function reqListener() {
+        if (this.status === 200) {
+            const response = JSON.parse(this.responseText);
+            DYN_FORM(response.result);
+        } else {
+            document.body.innerHTML = this.status + ' ' + this.statusText;
+        }
+
+    };
+
+    function onreadystatechangeListener() {
+        console.log(this.readyState);
+    }
+
+    var form = new XMLHttpRequest();
+    form.onload = reqListener;
+    form.onreadystatechange = onreadystatechangeListener;
+    form.open("GET", 'dynForm.json', true);
+    form.send();
+
+    /*
+     *  [\w]+?\.([\w]{2,}?)|\2\/(\w+?)\/
+     *
+     *  http://www.tut.by
+     *
+     *  http://fe.it-academy.by/Cabinet/
+     *
+     */
+
+    let clickSubmit = function (e) {
+        e.preventDefault();
+        let regURL = /^(http(s)?:\/{2})(w{3}\.)?([\w\-]+?\.)([\w\/]{2,})(([\w\/]{1,}?))?/;
+        let regEmail = /^([\w\-]+)@[a-z]+\.[a-z]{2,}$/;
+
+        if (!regURL.test($('#siteurl').val())) {
+            if (!$('#siteurl').next('span').hasClass('errorMsg')) {
+                $('#siteurl').after('<span class="errorMsg">URL введен не верно!</span>');
+            }
+        } else {
+            $('#siteurl').next('span').remove();
+        }
+
+        if (!regEmail.test($('#email').val())) {
+            if (!$('#email').next('span').hasClass('errorMsg')) {
+                $('#email').after('<span class="errorMsg">Введите правильный Email!</span>');
+            }
+        } else {
+            $('#email').next('span').remove();
+        }
+
+        if ($('.errorMsg').length === 0) {
+            let a = {func: "GET_DOMAIN_IP", domain: $('#siteurl').val().replace('http://')};
+            console.log(a);
+            $.ajax({
+                url: 'http://fe.it-academy.by/TestAjax3.php',
+                type: 'GET',
+                data: a,
+                cache: false,
+                success: (a) => {
+                    console.log(a);
+                },
+                error: (a) => console.log('Страница нет!'),
+            });
+            $('form').submit();
+        }
+    }
+
+</script>
+</body>
+</html>
